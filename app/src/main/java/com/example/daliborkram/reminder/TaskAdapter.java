@@ -20,7 +20,9 @@ public class TaskAdapter extends ArrayAdapter<Task> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.task_item, parent, false);
         TextView name = convertView.findViewById(R.id.item_name);
         TextView time = convertView.findViewById(R.id.item_time);
-
+        name.setText(task.name);
+        //time.setText("Hello world");
+        return convertView;
     }
 
 }

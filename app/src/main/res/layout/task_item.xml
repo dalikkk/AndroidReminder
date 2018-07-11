@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/task_item"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     >
 
     <TextView

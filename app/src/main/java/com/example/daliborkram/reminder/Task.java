@@ -14,15 +14,17 @@ public class Task extends RealmObject {
     String comment;
     //Color color;
     //ArrayList<Date> finishedTasks;
-/*
-    public ArrayList<Date> getFinishedTasks() {
-        return finishedTasks;
+
+    String colorHex;
+
+    public String getColorHex() {
+        return colorHex;
     }
 
-    public void addFinishedTask(Date date) {
-        finishedTasks.add(date);
+    public void setColorHex(String colorHex) {
+        this.colorHex = colorHex;
     }
-*/
+
     public int getId() {
         return id;
     }

@@ -35,11 +35,13 @@
     <GridView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/grit_view_tasks"
-        android:columnWidth="180dp"
+        android:id="@+id/grid_view_tasks"
+        android:columnWidth="130dp"
         android:numColumns="auto_fit"
         android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
         android:gravity="center"
+        android:padding="10dp"
         />
 
 </LinearLayout>
