@@ -15,15 +15,7 @@ public class Task extends RealmObject {
     //Color color;
     //ArrayList<Date> finishedTasks;
 
-    String colorHex;
-
-    public String getColorHex() {
-        return colorHex;
-    }
-
-    public void setColorHex(String colorHex) {
-        this.colorHex = colorHex;
-    }
+    private int taskColor;
 
     public int getId() {
         return id;
@@ -49,15 +41,15 @@ public class Task extends RealmObject {
     public void setComment(String comment) {
         this.comment = comment;
     }
-    /*
-        public Color getColor() {
-            return color;
-        }
 
-        public void setColor(Color color) {
-            this.color = color;
-        }
-    */
+    public int getTaskColor() {
+        return taskColor;
+    }
+
+    public void setTaskColor(int taskColor) {
+        this.taskColor = taskColor;
+    }
+
     public Task() {
     }
 }

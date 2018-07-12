@@ -12,6 +12,7 @@
         android:layout_gravity="center">
 
         <ImageView
+            android:id="@+id/main_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/add_circle_blue"
@@ -24,6 +25,7 @@
             android:layout_weight="1"/>
 
         <ImageView
+            android:id="@+id/main_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_settings_black_24dp"

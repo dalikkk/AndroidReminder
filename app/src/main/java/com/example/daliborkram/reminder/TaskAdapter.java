@@ -33,6 +33,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         TextView name = convertView.findViewById(R.id.item_name);
         TextView time = convertView.findViewById(R.id.item_time);
         name.setText(task.getName());
+        convertView.setBackgroundColor(task.getTaskColor());
         //time.setText("Hello world");
         return convertView;
     }
