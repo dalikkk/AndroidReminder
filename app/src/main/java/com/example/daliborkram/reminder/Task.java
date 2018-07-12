@@ -10,8 +10,8 @@ import io.realm.annotations.PrimaryKey;
 
 public class Task extends RealmObject {
     @PrimaryKey int id;
-    String name;
-    String comment;
+    private String name;
+    private String comment;
     //Color color;
     //ArrayList<Date> finishedTasks;
 
