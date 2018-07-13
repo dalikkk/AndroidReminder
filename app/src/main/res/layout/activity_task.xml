@@ -13,6 +13,7 @@
         android:layout_gravity="center">
 
         <ImageView
+            android:id="@+id/task_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_save_green_24dp"
@@ -25,6 +26,7 @@
             android:layout_weight="1"/>
 
         <ImageView
+            android:id="@+id/task_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_delete_black_24dp"
@@ -41,6 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
+        android:id="@+id/task_color_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="choose_color"
