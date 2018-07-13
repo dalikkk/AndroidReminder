@@ -44,6 +44,7 @@ public class TaskActivity extends AppCompatActivity {
                         toDelete.deleteAllFromRealm();
                     }
                 });
+                MainActivity.tasks.remove(task);
                 MainActivity.adapter.notifyDataSetChanged();
                 context.finish();
             }
