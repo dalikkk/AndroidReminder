@@ -17,7 +17,8 @@ import yuku.ambilwarna.AmbilWarnaDialog;
 public class TaskActivity extends AppCompatActivity {
 
     private Task task;
-    Context context;
+    TaskActivity context;
+    private int colorToChange;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +27,7 @@ public class TaskActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int position = intent.getIntExtra(MainActivity.TASK_POSITION, -1);
         task = MainActivity.tasks.get(position);
+        colorToChange = task.getTaskColor();
         setTitle(task.getName());
         final TextView comment = findViewById(R.id.detail_task_comment);
         comment.setText(task.getComment());
@@ -43,24 +45,20 @@ public class TaskActivity extends AppCompatActivity {
                     }
                 });
                 MainActivity.adapter.notifyDataSetChanged();
-                Intent intent = new Intent(context, MainActivity.class);
-                startActivity(intent);
+                context.finish();
             }
         });
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Realm realm = MainActivity.realm;
-                Task editTask = realm.where(Task.class)
-                        .equalTo("id", task.getId())
-                        .findFirst();
                 realm.beginTransaction();
                 EditText comment = findViewById(R.id.detail_task_comment);
                 task.setComment(comment.getText().toString());
+                task.setTaskColor(colorToChange);
                 realm.commitTransaction();
                 MainActivity.adapter.notifyDataSetChanged();
-                Intent intent = new Intent(context, MainActivity.class);
-                startActivity(intent);
+                context.finish();
             }
         });
         Button button = findViewById(R.id.task_color_picker);
@@ -75,13 +73,7 @@ public class TaskActivity extends AppCompatActivity {
 
                     @Override
                     public void onOk(AmbilWarnaDialog dialog, int color) {
-                        Realm realm = MainActivity.realm;
-                        Task editTask = realm.where(Task.class)
-                                .equalTo("id", task.getId())
-                                .findFirst();
-                        realm.beginTransaction();
-                        editTask.setTaskColor(color);
-                        realm.commitTransaction();
+                        colorToChange = color;
                     }
                 });
                 colorPicker.show();

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import java.util.ArrayList;
 import java.util.Date;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -13,10 +14,18 @@ public class Task extends RealmObject {
     private int id;
     private String name;
     private String comment;
-    //Color color;
-    //ArrayList<Date> finishedTasks;
 
     private int taskColor;
+
+    private RealmList<Date> history;
+
+    public RealmList<Date> getHistory() {
+        return history;
+    }
+
+    public void setHistory(RealmList<Date> history) {
+        this.history = history;
+    }
 
     public int getId() {
         return id;

@@ -15,7 +15,7 @@ import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class AddTaskActivity extends AppCompatActivity {
 
-    Context context;
+    AddTaskActivity context;
     int taskBackgroundColor = R.color.colorPrimary;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +41,7 @@ public class AddTaskActivity extends AppCompatActivity {
                     realm.commitTransaction();
                     MainActivity.tasks.add(task);
                     MainActivity.adapter.notifyDataSetChanged();
-                    Intent intent = new Intent(context, MainActivity.class);
-                    startActivity(intent);
+                    context.finish();
                 }
             }
         });
