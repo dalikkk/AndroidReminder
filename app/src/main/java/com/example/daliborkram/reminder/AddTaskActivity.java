@@ -10,7 +10,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+
+
+import java.util.ArrayList;
+import java.util.Date;
+
 import io.realm.Realm;
+import io.realm.RealmList;
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class AddTaskActivity extends AppCompatActivity {
@@ -38,6 +44,10 @@ public class AddTaskActivity extends AppCompatActivity {
                     task.setName(name.getText().toString());
                     task.setComment(comment.getText().toString());
                     task.setTaskColor(taskBackgroundColor);
+                    RealmList history = new RealmList<Date>();
+                    history.add(new Date());
+                    task.setHistory(history);
+
                     realm.commitTransaction();
                     MainActivity.tasks.add(task);
                     MainActivity.adapter.notifyDataSetChanged();

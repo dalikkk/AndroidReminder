@@ -7,6 +7,7 @@ import java.util.Date;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 
 public class Task extends RealmObject {
@@ -16,6 +17,17 @@ public class Task extends RealmObject {
     private String comment;
 
     private int taskColor;
+
+    public RealmList<String> getHistoryComments() {
+        return historyComments;
+    }
+
+    public void setHistoryComments(RealmList<String> historyComments) {
+        this.historyComments = historyComments;
+    }
+
+    private RealmList<String> historyComments;
+
 
     private RealmList<Date> history;
 
