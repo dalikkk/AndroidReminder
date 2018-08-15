@@ -2,6 +2,7 @@ package com.example.daliborkram.reminder;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.Image;
@@ -10,20 +11,26 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
@@ -70,6 +77,46 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra(TASK_POSITION, i);
                     startActivity(intent);
                     return false;
+                }
+            });
+            view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    final Task task = tasks.get(i);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    final EditText comment = new EditText(MainActivity.this);
+                    comment.setInputType(InputType.TYPE_CLASS_TEXT);
+                    builder.setView(comment);
+                    builder.setMessage("Something").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int integer) {
+                            String commentString = comment.getText().toString();
+                            //Toast.makeText(MainActivity.this, task.getName(), Toast.LENGTH_SHORT).show();
+                            realm.beginTransaction();
+                            RealmList history = new RealmList<Date>();
+                            for (int i = 0;i < task.getHistory().size();i++)  {
+                                history.add(task.getHistory().get(i));
+                            }
+                            history.add(new Date());
+
+                            task.setHistory(history);
+                            RealmList historyComments = new RealmList<String>();
+                            for (int i = 0;i < task.getHistoryComments().size();i++) {
+                                historyComments.add(task.getHistoryComments().get(i));
+                            }
+                            historyComments.add(commentString);
+                            task.setHistoryComments(historyComments);
+                            realm.commitTransaction();
+                        }
+                    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int which) {
+                            dialogInterface.cancel();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.setTitle("Title");
+                    dialog.show();
                 }
             });
             ImageView addBtn = findViewById(R.id.main_add);

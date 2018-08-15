@@ -47,7 +47,9 @@ public class AddTaskActivity extends AppCompatActivity {
                     RealmList history = new RealmList<Date>();
                     history.add(new Date());
                     task.setHistory(history);
-
+                    RealmList<String> historyComments = new RealmList<String>();
+                    historyComments.add(comment.getText().toString());
+                    task.setHistoryComments(historyComments);
                     realm.commitTransaction();
                     MainActivity.tasks.add(task);
                     MainActivity.adapter.notifyDataSetChanged();
