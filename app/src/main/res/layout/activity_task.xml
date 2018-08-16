@@ -48,6 +48,12 @@
         android:layout_height="wrap_content"
         android:text="choose_color"
         android:layout_gravity="center"/>
+    <Button
+        android:id="@+id/notification_setter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set notification"
+        android:layout_gravity="center"/>
 
     <!--
     <TextView

@@ -1,6 +1,9 @@
 package com.example.daliborkram.reminder;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.media.Image;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -35,6 +39,7 @@ import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String TASK_NAME = "taskName";
     static Context context;
     public static ArrayList<Task> tasks;
     public static final String TASK_POSITION = "position";
@@ -107,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                             historyComments.add(commentString);
                             task.setHistoryComments(historyComments);
                             realm.commitTransaction();
+                            setNotification(task);
                         }
                     }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
@@ -174,5 +180,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         timeUpdater.postDelayed(timeUpdate, 500);
+    }
+
+    public void setNotification(Task task) {
+        long notificationTime = task.getHistory().get(task.getHistory().size() - 1).getTime() + task.getNotificationTimeDelay();
+        if (SystemClock.elapsedRealtime() > notificationTime)
+            return;
+        Intent notificationIntent = new Intent(this, NotificationReceiver.class);
+        notificationIntent.putExtra("TaskName", task.getName());
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, task.getId(), notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, notificationTime, pendingIntent);
     }
 }

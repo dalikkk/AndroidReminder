@@ -18,6 +18,16 @@ public class Task extends RealmObject {
 
     private int taskColor;
 
+    private long notificationTimeDelay = -1;
+
+    public long getNotificationTimeDelay() {
+        return notificationTimeDelay;
+    }
+
+    public void setNotificationTimeDelay(long notificationTimeDelay) {
+        this.notificationTimeDelay = notificationTimeDelay;
+    }
+
     public RealmList<String> getHistoryComments() {
         return historyComments;
     }
